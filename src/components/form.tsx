@@ -1,5 +1,5 @@
 import { Button, Grid, TextField } from "@mui/material";
-import React from "react";
+import React, { SyntheticEvent } from "react";
 
 async function findCep(CEP: any) {
     return await fetch(`https://viacep.com.br/ws/${CEP}/json/`).then(data => data.json());
@@ -37,10 +37,10 @@ const Form = ({reloadItems}: FormProps) => {
         })
     }
 
-    function handleChange(e) {
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         setData(oldData => ({
             ...oldData,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.
         }))
     }
 
