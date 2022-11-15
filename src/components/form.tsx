@@ -5,7 +5,11 @@ async function findCep(CEP: any) {
     return await fetch(`https://viacep.com.br/ws/${CEP}/json/`).then(data => data.json());
 }
 
-const Form = ({reloadItems}) => {
+type FormProps = {
+    reloadItems: Function
+}
+
+const Form = ({reloadItems}: FormProps) => {
 
     const initialData = {
         apelido: "",
