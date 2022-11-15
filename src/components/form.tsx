@@ -59,7 +59,7 @@ const Form = ({reloadItems}: FormProps) => {
          <h2>Adicionar novo contato</h2>
         <Grid component="form" container spacing={2} >
            
-        <Grid item xs={4}>
+        <Grid item xs={12} lg={4}>
           <TextField
             margin="normal"
             fullWidth
@@ -73,7 +73,7 @@ const Form = ({reloadItems}: FormProps) => {
             onChange={handleChange}
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} lg={4}>
           <TextField
             margin="normal"
             fullWidth
@@ -86,7 +86,7 @@ const Form = ({reloadItems}: FormProps) => {
             onChange={handleChange}
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} lg={4}>
           <TextField
             margin="normal"
             fullWidth
@@ -100,7 +100,7 @@ const Form = ({reloadItems}: FormProps) => {
           />
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item xs={12} lg={4}>
            <TextField
             margin="normal"
             fullWidth
@@ -115,7 +115,7 @@ const Form = ({reloadItems}: FormProps) => {
           />
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={12} lg={6}>
            <TextField
             margin="normal"
             fullWidth
@@ -129,7 +129,7 @@ const Form = ({reloadItems}: FormProps) => {
           />
         </Grid>
 
-        <Grid item xs={2}>
+        <Grid item xs={12} lg={2}>
            <TextField
             margin="normal"
             fullWidth
@@ -142,7 +142,7 @@ const Form = ({reloadItems}: FormProps) => {
             onChange={handleChange}
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} lg={4}>
            <TextField
             margin="normal"
             fullWidth
@@ -156,7 +156,7 @@ const Form = ({reloadItems}: FormProps) => {
           />
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item xs={12} lg={4}>
            <TextField
             margin="normal"
             fullWidth
@@ -170,7 +170,7 @@ const Form = ({reloadItems}: FormProps) => {
           />
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item xs={12} lg={4}>
            <TextField
             margin="normal"
             fullWidth
@@ -184,7 +184,7 @@ const Form = ({reloadItems}: FormProps) => {
           />
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item xs={12} lg={4}>
            <TextField
             margin="normal"
             fullWidth
@@ -198,10 +198,10 @@ const Form = ({reloadItems}: FormProps) => {
           />
         </Grid>
 
-        <Grid item xs={2} style={{ alignItems: 'center', display: 'flex'}}>
+        <Grid item xs={12} lg={2} style={{ alignItems: 'center', display: 'flex'}}>
             <Button variant="contained" fullWidth onClick={saveData}>Salvar</Button>
         </Grid>
-        <Grid item xs={2} style={{ alignItems: 'center', display: 'flex'}}>
+        <Grid item xs={12} lg={2} style={{ alignItems: 'center', display: 'flex'}}>
             <Button variant="outlined" color="warning" fullWidth onClick={ () => setData(initialData)}>Limpar</Button>
         </Grid>
       </Grid>
