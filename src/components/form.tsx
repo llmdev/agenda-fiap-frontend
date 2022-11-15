@@ -40,7 +40,7 @@ const Form = ({reloadItems}: FormProps) => {
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         setData(oldData => ({
             ...oldData,
-            [e.target.name]: e.target.
+            [e.target.name]: e.target.value
         }))
     }
 
