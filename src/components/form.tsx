@@ -1,10 +1,58 @@
 import { Button, Grid, TextField } from "@mui/material";
+import React from "react";
 
-const Form = () => {
+async function findCep(CEP: any) {
+    return await fetch(`https://viacep.com.br/ws/${CEP}/json/`).then(data => data.json());
+}
+
+const Form = ({reloadItems}) => {
+
+    const initialData = {
+        apelido: "",
+        nome: "",
+        sobrenome: "",
+        telefone: "",
+        logradouro: "",
+        complemento: "",
+        cep: "",
+        numero: "",
+        cidade: "",
+        uf: "",
+    }
+
+    const [data, setData] = React.useState(initialData);
+
+    function findCepAndReplaceState(cep: any) {
+        findCep(cep).then( data => {
+            setData(oldData => ({
+                ...oldData,
+                logradouro: data.logradouro,
+                cidade: data.localidade,
+                uf: data.uf
+            }))
+        })
+    }
+
+    function handleChange(e) {
+        setData(oldData => ({
+            ...oldData,
+            [e.target.name]: e.target.value
+        }))
+    }
+
+    function saveData() {
+        fetch('https://agenda-fiap-api.vercel.app/contacts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then( () => reloadItems() )
+    }
+
     return (
         <>
          <h2>Adicionar novo contato</h2>
-        
         <Grid component="form" container spacing={2} >
            
         <Grid item xs={4}>
@@ -12,11 +60,13 @@ const Form = () => {
             margin="normal"
             fullWidth
             required
-            id="email"
+            id="apelido"
             label="Apelido"
-            name="email"
-            autoComplete="email"
+            name="apelido"
+            autoComplete="apelido"
+            value={data.apelido}
             autoFocus
+            onChange={handleChange}
           />
         </Grid>
         <Grid item xs={4}>
@@ -24,11 +74,12 @@ const Form = () => {
             margin="normal"
             fullWidth
             required
-            id="email"
+            id="nome"
             label="Nome"
-            name="email"
-            autoComplete="email"
-            autoFocus
+            name="nome"
+            autoComplete="nome"
+            value={data.nome}
+            onChange={handleChange}
           />
         </Grid>
         <Grid item xs={4}>
@@ -36,11 +87,12 @@ const Form = () => {
             margin="normal"
             fullWidth
             required
-            id="email"
+            id="sobrenome"
             label="Sobrenome"
-            name="email"
-            autoComplete="email"
-            autoFocus
+            name="sobrenome"
+            autoComplete="sobrenome"
+            value={data.sobrenome}
+            onChange={handleChange}
           />
         </Grid>
 
@@ -49,11 +101,13 @@ const Form = () => {
             margin="normal"
             fullWidth
             required
-            id="email"
+            id="cep"
             label="CEP"
-            name="email"
-            autoComplete="email"
-            autoFocus
+            name="cep"
+            autoComplete="cep"
+            onBlur={(e) => findCepAndReplaceState(e.target.value)}
+            value={data.cep}
+            onChange={handleChange}
           />
         </Grid>
 
@@ -62,11 +116,12 @@ const Form = () => {
             margin="normal"
             fullWidth
             required
-            id="email"
+            id="logradouro"
             label="Logradouro"
-            name="email"
-            autoComplete="email"
-            autoFocus
+            name="logradouro"
+            autoComplete="logradouro"
+            value={data.logradouro}
+            onChange={handleChange}
           />
         </Grid>
 
@@ -75,11 +130,12 @@ const Form = () => {
             margin="normal"
             fullWidth
             required
-            id="email"
+            id="numero"
             label="Numero"
-            name="email"
-            autoComplete="email"
-            autoFocus
+            name="numero"
+            autoComplete="numero"
+            value={data.numero}
+            onChange={handleChange}
           />
         </Grid>
         <Grid item xs={4}>
@@ -87,11 +143,12 @@ const Form = () => {
             margin="normal"
             fullWidth
             required
-            id="email"
+            id="complemento"
             label="Complemento"
-            name="email"
-            autoComplete="email"
-            autoFocus
+            name="complemento"
+            autoComplete="complemento"
+            value={data.complemento}
+            onChange={handleChange}
           />
         </Grid>
 
@@ -100,11 +157,12 @@ const Form = () => {
             margin="normal"
             fullWidth
             required
-            id="email"
+            id="cidade"
             label="Cidade"
-            name="email"
-            autoComplete="email"
-            autoFocus
+            name="cidade"
+            autoComplete="cidade"
+            value={data.cidade}
+            onChange={handleChange}
           />
         </Grid>
 
@@ -113,11 +171,12 @@ const Form = () => {
             margin="normal"
             fullWidth
             required
-            id="email"
+            id="uf"
             label="Estado"
-            name="email"
-            autoComplete="email"
-            autoFocus
+            name="uf"
+            autoComplete="uf"
+            value={data.uf}
+            onChange={handleChange}
           />
         </Grid>
 
@@ -126,19 +185,20 @@ const Form = () => {
             margin="normal"
             fullWidth
             required
-            id="email"
+            id="telefone"
             label="Telefone"
-            name="email"
-            autoComplete="email"
-            autoFocus
+            name="telefone"
+            autoComplete="telefone"
+            value={data.telefone}
+            onChange={handleChange}
           />
         </Grid>
 
         <Grid item xs={2} style={{ alignItems: 'center', display: 'flex'}}>
-            <Button variant="contained" fullWidth>Salvar</Button>
+            <Button variant="contained" fullWidth onClick={saveData}>Salvar</Button>
         </Grid>
         <Grid item xs={2} style={{ alignItems: 'center', display: 'flex'}}>
-            <Button variant="outlined" color="warning" fullWidth>Limpar</Button>
+            <Button variant="outlined" color="warning" fullWidth onClick={ () => setData(initialData)}>Limpar</Button>
         </Grid>
       </Grid>
       </>
